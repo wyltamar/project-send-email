@@ -29,6 +29,8 @@ public class AppTest {
 		try {
 
 			Properties properties = new Properties();
+			
+			properties.put("mail.smtp.ssl.trust", "*"); // Authentication ssl
 			properties.put("mail.smtp.auth", "true"); // Authorization
 			properties.put("mail.starttls", "true"); // Authentication
 			properties.put("mail.smtp.host", "smtp.gmail.com"); // Server Google Gmail
@@ -49,12 +51,14 @@ public class AppTest {
 					.parse("pedrooluucas2010@gmail.com");
 			
 			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress(userName)); // quem estar enviadno
+			message.setFrom(new InternetAddress(userName,"Wyltamar Douglas")); // quem estar enviadno
 			message.setRecipients(Message.RecipientType.TO, toUser); //email de destino
 			message.setSubject("Email enviado com java"); //assunto do email
 			message.setText("Esse email foi enviado com Java através do curso Java Web - Wyltamar"); //corpo do email
 			
 			Transport.send(message);
+			
+			Thread.sleep(5000); //wait 5 seconds for closed the test
 
 		} catch (Exception e) {
 			e.printStackTrace();
