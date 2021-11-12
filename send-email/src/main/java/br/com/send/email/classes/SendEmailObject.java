@@ -14,7 +14,7 @@ import javax.mail.internet.MimeMessage;
 public class SendEmailObject {
 	
 	private String userName = "wyltamarjavadev@gmail.com";
-	private String password = "**********"; //password here is incorrect
+	private String password = "javadev123"; //password here is incorrect
 	
 	private String ricipient = "";
 	private String submitter = "";
@@ -28,7 +28,7 @@ public class SendEmailObject {
 		this.text = text;
 	}
 	
-	public void sendEmail() throws Exception{
+	public void sendEmail(boolean envioHtml) throws Exception{
 		
 		Properties properties = new Properties();
 		
@@ -49,14 +49,20 @@ public class SendEmailObject {
 			}
 		});
 
-		Address[] toUser = InternetAddress
+		Address[] toUser = InternetAddress 
 				.parse(ricipient);
 		
 		Message message = new MimeMessage(session);
 		message.setFrom(new InternetAddress(userName,submitter)); // quem estar enviadno
 		message.setRecipients(Message.RecipientType.TO, toUser); //email de destino
 		message.setSubject(subject); //assunto do email
-		message.setText(text); //corpo do email
+		
+		if(envioHtml) {
+			message.setContent(text, "text/html; chartset=utf-8");
+		}else {
+			message.setText(text); //corpo do email
+			
+		}
 		
 		Transport.send(message);
 

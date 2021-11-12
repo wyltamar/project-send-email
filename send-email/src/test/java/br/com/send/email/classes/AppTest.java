@@ -22,15 +22,20 @@ public class AppTest {
 
 	@org.junit.Test
 	public void testEmail() throws Exception {
+		
+		StringBuilder stringBuilderTextEmail = new StringBuilder();
+		
+		stringBuilderTextEmail.append("Hi, <br><br>");
+		stringBuilderTextEmail.append("<h2>You are receiving the Java course access.</h2>");
 
 		SendEmailObject sendEmailObject = new SendEmailObject(
 				"wiltamar@cagepa.pb.gov.br", 
 				"Wyltamar", 
 				"Send email with Java", 
-				"Sending email with Java - Course JDev Treinnings"
+				stringBuilderTextEmail.toString()
 				);
 		
-		sendEmailObject.sendEmail();
+		sendEmailObject.sendEmail(true);
 
 		Thread.sleep(5000); // await 5 seconds for closed the test
 
