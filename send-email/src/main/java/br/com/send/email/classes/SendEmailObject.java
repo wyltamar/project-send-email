@@ -3,6 +3,8 @@ package br.com.send.email.classes;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -117,15 +119,27 @@ public class SendEmailObject {
 
 		}
 		
-		/*Part 2 - email attachments*/
-		MimeBodyPart emailAttachment = new MimeBodyPart();
-		emailAttachment.setDataHandler(new DataHandler(new ByteArrayDataSource(pdfSimulator(), "aplication/pdf")));
-		emailAttachment.setFileName("myfile.pdf");
-		
+		List<FileInputStream> files = new ArrayList<FileInputStream>();
+		files.add( pdfSimulator());
+		files.add( pdfSimulator());
+		files.add( pdfSimulator());
+		files.add( pdfSimulator());
 		
 		Multipart multipart = new MimeMultipart();
 		multipart.addBodyPart(emailBody);
-		multipart.addBodyPart(emailAttachment);
+		
+		int count = 0;
+		
+		for (FileInputStream fileInputStream : files) {
+			
+			/*Part 2 - email attachments*/
+			MimeBodyPart emailAttachment = new MimeBodyPart();
+			emailAttachment.setDataHandler(new DataHandler(new ByteArrayDataSource(fileInputStream, "aplication/pdf")));
+			emailAttachment.setFileName("myfile"+count+".pdf");
+					
+			multipart.addBodyPart(emailAttachment);
+			count++;
+		}
 		
 		message.setContent(multipart);
 		
