@@ -36,7 +36,7 @@ public class AppTest {
 		SendEmailObject sendEmailObject = new SendEmailObject("wyltamar.douglasdesousaoliveir@gmail.com", "Wyltamar",
 				"Send email with Java", stringBuilderTextEmail.toString());
 
-		sendEmailObject.sendEmail(true);
+		sendEmailObject.sendEmailAttachment(true);
 
 		Thread.sleep(5000); // await 5 seconds for closed the test
 
